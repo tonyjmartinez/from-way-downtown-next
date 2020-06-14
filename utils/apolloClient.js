@@ -14,7 +14,6 @@ const requestAccessToken = async () => {
   const res = await fetch(`${process.env.APP_HOST}/api/session`);
   if (res.ok) {
     const json = await res.json();
-    console.log("json here", json);
     accessToken = json.accessToken;
   } else {
     accessToken = "public";

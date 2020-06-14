@@ -1,7 +1,6 @@
 import auth0 from "../utils/auth0";
 
 const Profile = (props) => {
-  console.log("props", props);
   return <div>Profile</div>;
 };
 

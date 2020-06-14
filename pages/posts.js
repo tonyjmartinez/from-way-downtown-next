@@ -17,10 +17,8 @@ const Posts = (props) => {
   if (loading) {
     return <div>Loading..</div>;
   } else if (error) {
-    console.log("error", error);
     return <div>Error</div>;
   } else if (data) {
-    console.log("data", data);
     return <div>{JSON.stringify(data)}</div>;
   }
 };
