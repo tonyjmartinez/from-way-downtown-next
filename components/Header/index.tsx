@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Heading, Flex, Text, Button } from "@chakra-ui/core";
+import {
+  Box,
+  Heading,
+  Flex,
+  Text,
+  Button,
+  useColorMode,
+} from "@chakra-ui/core";
 import Drawer from "../Drawer";
 
 const MenuItems = ({ children }) => (
@@ -9,8 +16,10 @@ const MenuItems = ({ children }) => (
 );
 
 const Header = (props) => {
-  const [show, setShow] = React.useState(false);
-  const handleToggle = () => setShow(!show);
+  const { colorMode, toggleColorMode } = useColorMode();
+
+  const bgColor = { light: "white", dark: "gray.800" };
+  const color = { light: "black", dark: "white" };
 
   return (
     <Flex
@@ -19,8 +28,8 @@ const Header = (props) => {
       justify="space-between"
       wrap="wrap"
       padding="1.5rem"
-      bg="teal.500"
-      color="white"
+      bg={bgColor[colorMode]}
+      color={color[colorMode]}
       style={{
         position: "fixed",
         bottom: 0,
@@ -33,6 +42,10 @@ const Header = (props) => {
           From Way Downtown
         </Heading>
       </Flex>
+
+      <Button onClick={toggleColorMode}>
+        {colorMode === "light" ? "Dark" : "Light"}
+      </Button>
 
       <Drawer />
     </Flex>

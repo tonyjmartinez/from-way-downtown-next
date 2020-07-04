@@ -1,5 +1,6 @@
 import {
   useDisclosure,
+  useColorMode,
   Box,
   Button,
   Drawer,
@@ -17,12 +18,16 @@ function DrawerExample() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
+  const { colorMode, toggleColorMode } = useColorMode();
+
+  const color = { light: "black", dark: "white" };
+
   return (
     <>
       <Box ref={btnRef} onClick={onOpen}>
         <svg
-          fill="white"
-          width="12px"
+          fill={color[colorMode]}
+          width="20px"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
         >
