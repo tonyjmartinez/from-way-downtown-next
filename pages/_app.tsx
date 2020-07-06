@@ -1,11 +1,25 @@
 // import App from 'next/app'
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
+import { ThemeProvider } from "theme-ui";
+import theme from "../theme/theme";
 
 function MyApp({ Component, pageProps }) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <>
-      <Header />
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        {isMounted && (
+          <>
+            <Header {...pageProps} />
+            <Component {...pageProps} />
+          </>
+        )}
+      </ThemeProvider>
     </>
   );
 }
