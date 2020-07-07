@@ -1,10 +1,10 @@
-import { funk } from "@theme-ui/presets";
+import { future } from "@theme-ui/presets";
 
 export default {
   colors: {
     modes: {
       default: {
-        ...funk.colors,
+        ...future.colors,
         // background: "#fff",
         // primary: "#4dabf5",
         // text: "0A0A0A",

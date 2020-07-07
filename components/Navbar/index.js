@@ -12,6 +12,9 @@ const Navbar = () => {
         py: 4,
         alignItems: "center",
         variant: "styles.header",
+        position: "fixed",
+        bottom: 0,
+        width: "100%",
       }}
     >
       <button
