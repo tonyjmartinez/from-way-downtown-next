@@ -1,20 +1,35 @@
+import { funk } from "@theme-ui/presets";
+
 export default {
   colors: {
     modes: {
-      light: {
-        background: "#222",
-        primary: "#07c",
+      default: {
+        ...funk.colors,
+        // background: "#fff",
+        // primary: "#4dabf5",
+        // text: "0A0A0A",
       },
       dark: {
-        background: "#fff",
+        background: "#222",
         primary: "#0cf",
+        text: "#fff",
       },
     },
   },
-  styles: {
-    root: {
-      bg: "background",
-      transition: "all 2s",
-    },
-  },
+  // styles: {
+  //   root: {
+  //     bg: "background",
+  //     transition: "all 2s",
+  //   },
+  // },
+  // buttons: {
+  //   primary: {
+  //     color: "background",
+  //     bg: "primary",
+  //   },
+  //   secondary: {
+  //     color: "background",
+  //     bg: "secondary",
+  //   },
+  // },
 };
