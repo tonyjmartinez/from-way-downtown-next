@@ -1,24 +1,19 @@
 // import App from 'next/app'
 import { useState, useEffect } from "react";
-import Header from "../components/Header";
+import Navbar from "../components/Navbar";
 import { ThemeProvider } from "theme-ui";
 import theme from "../theme/theme";
 
-function MyApp({ Component, pageProps }) {
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+const mdComponents = {
+  h1: (props) => <h1 style={{ color: "tomato" }} {...props} />,
+};
 
+function MyApp({ Component, pageProps }) {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        {isMounted && (
-          <>
-            <Header {...pageProps} />
-            <Component {...pageProps} />
-          </>
-        )}
+      <ThemeProvider theme={theme} components={mdComponents}>
+        <Navbar {...pageProps} />
+        <Component {...pageProps} />
       </ThemeProvider>
     </>
   );

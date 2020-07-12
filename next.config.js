@@ -1,7 +1,19 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-module.exports = {
+const withMdxEnhanced = require("next-mdx-enhanced");
+
+module.exports = withMdxEnhanced({
+  layoutPath: "layouts",
+  defaultLayout: true,
+  fileExtensions: ["mdx"],
+  remarkPlugins: [],
+  rehypePlugins: [],
+  extendFrontMatter: {
+    process: (mdxContent, frontMatter) => {},
+    phase: "prebuild|loader|both",
+  },
+})({
   env: {
     AUTH0_DOMAIN: "from-way-downtown.us.auth0.com",
     AUTH0_AUDIENCE: process.env.AUTH0_AUDIENCE,
@@ -16,4 +28,4 @@ module.exports = {
     SESSION_COOKIE_LIFETIME: 7200, // 2 hours
     APP_HOST: process.env.DOMAIN,
   },
-};
+});
