@@ -12,7 +12,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <ThemeProvider theme={theme} components={mdComponents}>
-        <Navbar {...pageProps} />
         <Component {...pageProps} />
       </ThemeProvider>
     </>
