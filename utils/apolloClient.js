@@ -67,8 +67,10 @@ export default function createApolloClient(initialState, headers) {
   const ssrMode = typeof window === "undefined";
   let link;
   if (ssrMode) {
+    console.log("ssr mode");
     link = createHttpLink(headers);
   } else {
+    console.log("not ssr mode");
     link = createWSLink();
   }
   return new ApolloClient({

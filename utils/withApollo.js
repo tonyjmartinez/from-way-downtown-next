@@ -56,6 +56,9 @@ async function getHeaders(ctx) {
   if (typeof ctx.req === "undefined") return null;
 
   const s = await auth0.getSession(ctx.req);
+  if (s) {
+    console.log("s", s);
+  }
 
   if (s && s.idToken == null) return null;
 
@@ -118,6 +121,7 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent) => {
       PageComponent.displayName || PageComponent.name || "Component";
     WithApollo.displayName = `withApollo(${displayName})`;
   }
+  console.log("ssr???", ssr);
   if (ssr || PageComponent.getInitialProps) {
     WithApollo.getInitialProps = async (ctx) => {
       const { AppTree } = ctx;
