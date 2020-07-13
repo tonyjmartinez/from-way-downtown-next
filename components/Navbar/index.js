@@ -63,6 +63,9 @@ const Navbar = () => {
         <Link href="/api/login">
           <a>Login</a>
         </Link>
+        <Link href="/api/logout">
+          <a>Logout</a>
+        </Link>
         <Link href="/posts">
           <a>Posts</a>
         </Link>

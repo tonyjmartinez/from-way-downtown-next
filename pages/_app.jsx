@@ -3,16 +3,23 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { ThemeProvider } from "theme-ui";
 import theme from "../theme/theme";
+import { useFetchUser } from "../utils/user";
+import { withApollo } from "../utils/withApollo";
 
 const mdComponents = {
   h1: (props) => <h1 style={{ color: "tomato" }} {...props} />,
 };
 
 function MyApp({ Component, pageProps }) {
+  const { user, loading } = useFetchUser({ required: true });
+  if (!loading && !user) {
+    return <div>Login</div>;
+  }
+  console.log("user", user);
+
   return (
     <>
       <ThemeProvider theme={theme} components={mdComponents}>
-        <Navbar {...pageProps} />
         <Component {...pageProps} />
       </ThemeProvider>
     </>
@@ -27,8 +34,8 @@ function MyApp({ Component, pageProps }) {
 // MyApp.getInitialProps = async (appContext) => {
 //   // calls page's `getInitialProps` and fills `appProps.pageProps`
 //   const appProps = await App.getInitialProps(appContext);
-//
-//   return { ...appProps }
-// }
 
-export default MyApp;
+//   return { ...appProps };
+// };
+
+export default withApollo()(MyApp);

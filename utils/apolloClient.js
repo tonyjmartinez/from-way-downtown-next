@@ -34,6 +34,7 @@ const resetTokenLink = onError(({ networkError }) => {
 });
 
 const createHttpLink = (headers) => {
+  console.log("headers here", headers);
   const httpLink = new HttpLink({
     uri: "https://from-way-downtown-net.herokuapp.com/v1/graphql",
     credentials: "include",
@@ -52,6 +53,7 @@ const createWSLink = () => {
         reconnect: true,
         connectionParams: async () => {
           await requestAccessToken(); // happens on the client
+          console.log("access token apollo client", accessToken);
           return {
             headers: {
               authorization: accessToken ? `Bearer ${accessToken}` : "",
