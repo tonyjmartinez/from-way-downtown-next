@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/react-hooks";
 import { withApollo } from "../utils/withApollo";
 import gql from "graphql-tag";
+import { useFetchUser } from "../utils/user";
 
 const GET_POSTS = gql`
   query MyQuery {
@@ -12,6 +13,10 @@ const GET_POSTS = gql`
 `;
 
 const Posts = (props) => {
+  return <div>{props.data}</div>;
+};
+
+const PostsQuery = () => {
   const { loading, error, data } = useQuery(GET_POSTS);
 
   if (loading) {
@@ -19,8 +24,9 @@ const Posts = (props) => {
   } else if (error) {
     return <div>Error</div>;
   } else if (data) {
-    return <div>{JSON.stringify(data)}</div>;
+    // return <Posts data={JSON.stringify(data)} />;
+    return <div>Hello there</div>;
   }
 };
 
-export default withApollo({ ssr: true })(Posts);
+export default PostsQuery;

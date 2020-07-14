@@ -2,8 +2,10 @@
 import { Button, jsx, useColorMode } from "theme-ui";
 import Link from "next/link";
 import { FaRegMoon, FaRegSun } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+  const router = useRouter();
   const [colorMode, setColorMode] = useColorMode();
   return (
     <header
@@ -35,13 +37,6 @@ const Navbar = () => {
           }}
         />
       )}
-      {/* <Button
-        onClick={(e) => {
-          setColorMode(colorMode === "default" ? "dark" : "default");
-        }}
-      >
-        Toggle {colorMode === "default" ? "Dark" : "Light"}
-      </Button> */}
       <div
         sx={{
           display: "flex",
@@ -60,12 +55,9 @@ const Navbar = () => {
           justifyContent: "flex-end",
         }}
       >
-        <Link href="/api/login">
-          <a>Login</a>
-        </Link>
-        <Link href="/posts">
-          <a>Posts</a>
-        </Link>
+        <Button onClick={() => router.push("/api/login")}>Login</Button>
+        <Button onClick={() => router.push("/api/logout")}>Logout</Button>
+        <Button onClick={() => router.push("/posts")}>Posts</Button>
       </div>
     </header>
   );

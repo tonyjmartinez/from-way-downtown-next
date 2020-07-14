@@ -57,10 +57,10 @@ async function getHeaders(ctx) {
 
   const s = await auth0.getSession(ctx.req);
 
-  if (s && s.idToken == null) return null;
+  if (s && s.accessToken == null) return null;
 
   return {
-    authorization: `Bearer ${s ? s.idToken : ""}`,
+    authorization: `Bearer ${s ? s.accessToken : ""}`,
   };
 }
 

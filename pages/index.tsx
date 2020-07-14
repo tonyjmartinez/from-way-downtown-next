@@ -10,4 +10,4 @@ const Home = (props) => {
   );
 };
 
-export default withApollo()(Home);
+export default Home;
