@@ -47,13 +47,7 @@ const Navbar = () => {
           justifyContent: "center",
         }}
       >
-        <Link href="/">
-          <a>From Way Downtown</a>
-        </Link>
-        {/* <Link href="/">
-        
-          <a>From Way Downtown</a>
-        </Link> */}
+        <Link href="/">From Way Downtown</Link>
       </div>
       <div
         sx={{
