@@ -21,7 +21,7 @@ const PostsQuery = () => {
   if (loading) {
     return <div>Loading..</div>;
   } else if (error) {
-    return <div>Error</div>;
+    return <div>Error!!!</div>;
   } else if (data) {
     return <Posts data={JSON.stringify(data)} />;
   }
