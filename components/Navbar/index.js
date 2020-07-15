@@ -1,12 +1,15 @@
 /** @jsx jsx */
-import { Button, jsx, useColorMode } from "theme-ui";
-import Link from "next/link";
+import { Link, Button, jsx, useColorMode } from "theme-ui";
+// import Link from "next/link";
 import { FaRegMoon, FaRegSun } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { useFetchUser } from "../../utils/user";
 
 const Navbar = () => {
   const router = useRouter();
   const [colorMode, setColorMode] = useColorMode();
+  const { user, loading } = useFetchUser();
+  // TODO: dont shot login if they logged in
   return (
     <header
       sx={{
@@ -47,6 +50,10 @@ const Navbar = () => {
         <Link href="/">
           <a>From Way Downtown</a>
         </Link>
+        {/* <Link href="/">
+        
+          <a>From Way Downtown</a>
+        </Link> */}
       </div>
       <div
         sx={{
@@ -55,9 +62,18 @@ const Navbar = () => {
           justifyContent: "flex-end",
         }}
       >
-        <Button onClick={() => router.push("/api/login")}>Login</Button>
-        <Button onClick={() => router.push("/api/logout")}>Logout</Button>
-        <Button onClick={() => router.push("/posts")}>Posts</Button>
+        {!loading && user ? (
+          <>
+            <div>
+              <Button onClick={() => router.push("/api/logout")}>Logout</Button>
+            </div>
+            <div style={{ marginLeft: "1em" }}>
+              <Button onClick={() => router.push("/posts")}>Posts</Button>
+            </div>
+          </>
+        ) : (
+          <Button onClick={() => router.push("/api/login")}>Login</Button>
+        )}
       </div>
     </header>
   );
