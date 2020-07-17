@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Link, Button, jsx, useColorMode } from "theme-ui";
+import { NavLink, Button, jsx, useColorMode } from "theme-ui";
 // import Link from "next/link";
 import { FaRegMoon, FaRegSun } from "react-icons/fa";
 import { useRouter } from "next/router";
@@ -47,7 +47,7 @@ const Navbar = () => {
           justifyContent: "center",
         }}
       >
-        <Link href="/">From Way Downtown</Link>
+        <NavLink href="/">From Way Downtown</NavLink>
       </div>
       <div
         sx={{
@@ -59,14 +59,14 @@ const Navbar = () => {
         {!loading && user ? (
           <>
             <div>
-              <Button onClick={() => router.push("/api/logout")}>Logout</Button>
+              <NavLink href="/api/logout">Logout</NavLink>
             </div>
             <div style={{ marginLeft: "1em" }}>
-              <Button onClick={() => router.push("/posts")}>Posts</Button>
+              <NavLink href="/posts">Posts</NavLink>
             </div>
           </>
         ) : (
-          <Button onClick={() => router.push("/api/login")}>Login</Button>
+          <NavLink href="/api/login">Login</NavLink>
         )}
       </div>
     </header>
