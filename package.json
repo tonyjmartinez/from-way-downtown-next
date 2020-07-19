@@ -21,6 +21,7 @@
     "apollo-link-ws": "^1.0.20",
     "dotenv": "^8.2.0",
     "emotion-theming": "^10.0.27",
+    "formik": "^2.1.5",
     "graphql": "^15.1.0",
     "graphql-tag": "^2.10.3",
     "history": "^5.0.0",

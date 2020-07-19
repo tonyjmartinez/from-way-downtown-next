@@ -62,7 +62,7 @@ const Navbar = () => {
               <NavLink href="/api/logout">Logout</NavLink>
             </div>
             <div style={{ marginLeft: "1em" }}>
-              <NavLink href="/posts">Posts</NavLink>
+              <NavLink href="/new-post">New Post</NavLink>
             </div>
           </>
         ) : (

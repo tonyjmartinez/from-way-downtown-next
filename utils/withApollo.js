@@ -57,6 +57,7 @@ async function getHeaders(ctx) {
 
   const s = await auth0.getSession(ctx.req);
 
+  console.log("s", s);
   if (s && s.accessToken == null) return null;
 
   return {
