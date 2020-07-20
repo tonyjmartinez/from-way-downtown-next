@@ -6,11 +6,9 @@ import { useFetchUser } from "../utils/user";
 import Posts from "../components/Posts";
 
 const Home = (props) => {
-  const { loading, user } = useFetchUser();
-  console.log("loading", loading);
-  console.log("user", user);
+  const { loading, user } = useFetchUser({ required: true });
 
-  return user ? <Posts /> : <Text>Hello there</Text>;
+  return <Posts />;
 };
 
 export default Home;

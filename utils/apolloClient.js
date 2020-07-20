@@ -15,7 +15,6 @@ const requestAccessToken = async () => {
   if (res.ok) {
     const json = await res.json();
     accessToken = json.accessToken;
-    console.log("access token", accessToken);
   } else {
     accessToken = "public";
   }

@@ -1,12 +1,14 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { withApollo } from "../../utils/withApollo";
+import Card from "../Card";
 
 const GET_POSTS = gql`
   query MyQuery {
     posts {
       id
       title
+      content
     }
   }
 `;
@@ -23,7 +25,17 @@ const PostsQuery = () => {
   } else if (error) {
     return <div>Error!!!</div>;
   } else if (data) {
-    return <Posts data={JSON.stringify(data)} />;
+    return (
+      <div style={{ width: "100%" }}>
+        {data.posts.map(({ title, content }, idx) => (
+          <Card
+            title={title}
+            content={content}
+            sx={{ maxWidth: 512, mx: "auto", px: 3, py: 4 }}
+          />
+        ))}
+      </div>
+    );
   }
 };
 

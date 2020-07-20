@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { ThemeProvider } from "theme-ui";
 import theme from "../theme/theme";
-import { withApollo } from "../utils/withApollo";
 
 const mdComponents = {
   h1: (props) => <h1 style={{ color: "tomato" }} {...props} />,
