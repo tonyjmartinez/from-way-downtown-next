@@ -32,17 +32,6 @@ const Basic = () => {
     <div>
       <Formik
         initialValues={{ title: "", content: "" }}
-        // validate={(values) => {
-        //   const errors: any = {};
-        //   if (!values.email) {
-        //     errors.email = "Required";
-        //   } else if (
-        //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        //   ) {
-        //     errors.email = "Invalid email address";
-        //   }
-        //   return errors;
-        // }}
         onSubmit={(values, { setSubmitting }) => {
           const { content, title } = values;
           addPost({
@@ -50,14 +39,9 @@ const Basic = () => {
               content,
               title,
               userId: user?.sub,
-              isPublic: true,
+              isPublic: false,
             },
           });
-
-          // setTimeout(() => {
-          //   alert(JSON.stringify(values, null, 2));
-          //   setSubmitting(false);
-          // }, 400);
         }}
       >
         {({
