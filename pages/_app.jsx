@@ -3,16 +3,18 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { ThemeProvider } from "theme-ui";
 import theme from "../theme/theme";
-
+import {useFetchUser} from '../utils/user'
 const mdComponents = {
   h1: (props) => <h1 style={{ color: "tomato" }} {...props} />,
 };
 
-function MyApp({ Component, pageProps }) {
+const App = ({ Component, pageProps }) => {
+
+  const { user, loading } = useFetchUser();
   return (
     <>
       <ThemeProvider theme={theme} components={mdComponents}>
-        <Navbar {...pageProps} />
+        <Navbar {...pageProps} user={user} loading={loading} />
         <Component {...pageProps} />
       </ThemeProvider>
     </>
@@ -31,4 +33,4 @@ function MyApp({ Component, pageProps }) {
 //   return { ...appProps }
 // }
 
-export default MyApp;
+export default App;

@@ -4,11 +4,11 @@ import { NavLink, Button, jsx, useColorMode } from "theme-ui";
 import { FaRegMoon, FaRegSun } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { useFetchUser } from "../../utils/user";
+import Link from "next/link";
 
-const Navbar = () => {
-  const router = useRouter();
+const Navbar = (props) => {
+  const { user, loading } = props;
   const [colorMode, setColorMode] = useColorMode();
-  const { user, loading } = useFetchUser();
   // TODO: dont shot login if they logged in
   return (
     <header
@@ -47,7 +47,9 @@ const Navbar = () => {
           justifyContent: "center",
         }}
       >
-        <NavLink href="/">From Way Downtown</NavLink>
+        <Link href="/">
+          <a>From Way Downtown</a>
+        </Link>
       </div>
       <div
         sx={{
@@ -59,10 +61,14 @@ const Navbar = () => {
         {!loading && user ? (
           <>
             <div>
-              <NavLink href="/api/logout">Logout</NavLink>
+              <Link href="/api/logout">
+                <a>Logout</a>
+              </Link>
             </div>
             <div style={{ marginLeft: "1em" }}>
-              <NavLink href="/new-post">New Post</NavLink>
+              <Link href="/new-post">
+                <a>New Post</a>
+              </Link>
             </div>
           </>
         ) : (

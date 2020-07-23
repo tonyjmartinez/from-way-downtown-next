@@ -1,7 +1,10 @@
+/** @jsx jsx */
+import { jsx } from "theme-ui";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { withApollo } from "../../utils/withApollo";
 import Card from "../Card";
+import { Box } from "theme-ui";
 
 const GET_POSTS = gql`
   query MyQuery {
@@ -26,15 +29,17 @@ const PostsQuery = () => {
     return <div>Error!!!</div>;
   } else if (data) {
     return (
-      <div style={{ width: "100%" }}>
+      <>
         {data.posts.map(({ title, content }, idx) => (
-          <Card
-            title={title}
-            content={content}
-            sx={{ maxWidth: 512, mx: "auto", px: 3, py: 4 }}
-          />
+          <Box bg="muted" key={`title-${idx}`}>
+            <Card
+              title={title}
+              content={content}
+              sx={{ maxWidth: 350, mx: "auto", px: 3, py: 4, bg: "lightgray" }}
+            />
+          </Box>
         ))}
-      </div>
+      </>
     );
   }
 };
