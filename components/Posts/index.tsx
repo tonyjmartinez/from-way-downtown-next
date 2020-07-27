@@ -32,11 +32,7 @@ const PostsQuery = () => {
       <>
         {data.posts.map(({ title, content }, idx) => (
           <Box bg="muted" key={`title-${idx}`}>
-            <Card
-              title={title}
-              content={content}
-              sx={{ maxWidth: 350, mx: "auto", px: 3, py: 4, bg: "lightgray" }}
-            />
+            <Card title={title} content={content} />
           </Box>
         ))}
       </>

@@ -11,6 +11,7 @@ const CardComponent = (props: CardProps) => {
     <Card
       sx={{
         maxWidth: 256,
+        margin: "0px auto",
       }}
     >
       <Image src="https://i.imgur.com/r9dkEUf.png" />
