@@ -47,9 +47,9 @@ const Navbar = (props) => {
           justifyContent: "center",
         }}
       >
-        <NavLink href="/">
+        <Link href="/">
           <a>From Way Downtown</a>
-        </NavLink>
+        </Link>
       </div>
       <div
         sx={{
@@ -61,14 +61,14 @@ const Navbar = (props) => {
         {!loading && user ? (
           <>
             <div>
-              <NavLink href="/api/logout">
+              <Link href="/api/logout">
                 <a>Logout</a>
-              </NavLink>
+              </Link>
             </div>
             <div style={{ marginLeft: "1em" }}>
-              <NavLink href="/new-post">
+              <Link href="/new-post">
                 <a>New Post</a>
-              </NavLink>
+              </Link>
             </div>
           </>
         ) : (

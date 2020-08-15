@@ -12,6 +12,8 @@ const GET_POSTS = gql`
       id
       title
       content
+      image_url
+      image_title
     }
   }
 `;
@@ -30,9 +32,9 @@ const PostsQuery = () => {
   } else if (data) {
     return (
       <>
-        {data.posts.map(({ title, content }, idx) => (
+        {data.posts.map(({ title, content, image_url }, idx) => (
           <Box bg="muted" key={`title-${idx}`}>
-            <Card title={title} content={content} />
+            <Card title={title} content={content} imageUrl={image_url} />
           </Box>
         ))}
       </>

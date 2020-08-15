@@ -27,5 +27,6 @@ module.exports = withMdxEnhanced({
     SESSION_COOKIE_SECRET: process.env.SESSION_COOKIE_SECRET,
     SESSION_COOKIE_LIFETIME: 7200, // 2 hours
     APP_HOST: process.env.DOMAIN,
+    FILESTACK_API_KEY: process.env.FILESTACK_API_KEY,
   },
 });
