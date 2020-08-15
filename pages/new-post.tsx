@@ -7,4 +7,4 @@ const NewPostPage = () => {
   return <NewPost />;
 };
 
-export default withApollo({ ssr: true })(NewPostPage);
+export default withApollo({ ssr: false })(NewPostPage);
