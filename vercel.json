@@ -8,8 +8,7 @@
       "AUTH0_CLIENT_SECRET": "@auth0_client_secret",
       "REDIRECT_URI": "https://from-way-downtown-next.vercel.app/api/callback",
       "POST_LOGOUT_REDIRECT_URI": "https://from-way-downtown-next.vercel.app/",
-      "SESSION_COOKIE_SECRET": "@session_cookie_secret",
-      "FILESTACK_API_KEY": "@filestack_api_key"
+      "SESSION_COOKIE_SECRET": "@session_cookie_secret"
     }
   }
 }

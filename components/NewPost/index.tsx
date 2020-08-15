@@ -57,7 +57,6 @@ const Basic = (props: NewPostProps) => {
 
   return (
     <div>
-      FORM!!!
       <Formik
         initialValues={{ title: "", content: "" }}
         onSubmit={(values, { setSubmitting }) => {
