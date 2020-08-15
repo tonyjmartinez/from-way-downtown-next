@@ -9,7 +9,7 @@ import Link from "next/link";
 const Navbar = (props) => {
   const { user, loading } = props;
   const [colorMode, setColorMode] = useColorMode();
-  // TODO: dont shot login if they logged in
+
   return (
     <header
       sx={{
@@ -47,9 +47,9 @@ const Navbar = (props) => {
           justifyContent: "center",
         }}
       >
-        <Link href="/">
+        <NavLink href="/">
           <a>From Way Downtown</a>
-        </Link>
+        </NavLink>
       </div>
       <div
         sx={{
@@ -61,14 +61,14 @@ const Navbar = (props) => {
         {!loading && user ? (
           <>
             <div>
-              <Link href="/api/logout">
+              <NavLink href="/api/logout">
                 <a>Logout</a>
-              </Link>
+              </NavLink>
             </div>
             <div style={{ marginLeft: "1em" }}>
-              <Link href="/new-post">
+              <NavLink href="/new-post">
                 <a>New Post</a>
-              </Link>
+              </NavLink>
             </div>
           </>
         ) : (
