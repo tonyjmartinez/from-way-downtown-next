@@ -2,8 +2,6 @@
 import { NavLink, Button, jsx, useColorMode } from "theme-ui";
 // import Link from "next/link";
 import { FaRegMoon, FaRegSun } from "react-icons/fa";
-import { useRouter } from "next/router";
-import { useFetchUser } from "../../utils/user";
 import Link from "next/link";
 
 const Navbar = (props) => {
@@ -48,7 +46,7 @@ const Navbar = (props) => {
         }}
       >
         <Link href="/">
-          <a>From Way Downtown</a>
+          <Button>From Way Downtown</Button>
         </Link>
       </div>
       <div
@@ -62,17 +60,17 @@ const Navbar = (props) => {
           <>
             <div>
               <Link href="/api/logout">
-                <a>Logout</a>
+                <Button>Logout</Button>
               </Link>
             </div>
             <div style={{ marginLeft: "1em" }}>
               <Link href="/new-post">
-                <a>New Post</a>
+                <Button>New Post</Button>
               </Link>
             </div>
           </>
         ) : (
-          <NavLink href="/api/login">Login</NavLink>
+          <Link href="/api/login">Login</Link>
         )}
       </div>
     </header>
