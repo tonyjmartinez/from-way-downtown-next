@@ -4,11 +4,7 @@ import { withApollo } from "../utils/withApollo";
 
 const NewPostPage = () => {
   const { loading, user } = useFetchUser({ required: true });
-  return (
-    <div style={{ width: "75%", margin: "2em auto" }}>
-      <NewPost />
-    </div>
-  );
+  return <NewPost />;
 };
 
 export default withApollo({ ssr: true })(NewPostPage);
