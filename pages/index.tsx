@@ -6,10 +6,10 @@ import Posts from "../components/Posts";
 import { Grid } from "theme-ui";
 import { useFetchUser } from "../utils/user";
 
-const Home = (props) => {
+const Home = () => {
   const { user, loading } = useFetchUser();
   return (
-    <div>
+    <div style={{ width: "90%", margin: "2em auto" }}>
       <Grid width={[300]} gap={10}>
         {!loading && user && <Posts />}
       </Grid>

@@ -3,13 +3,12 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { ThemeProvider } from "theme-ui";
 import theme from "../theme/theme";
-import {useFetchUser} from '../utils/user'
+import { useFetchUser } from "../utils/user";
 const mdComponents = {
   h1: (props) => <h1 style={{ color: "tomato" }} {...props} />,
 };
 
 const App = ({ Component, pageProps }) => {
-
   const { user, loading } = useFetchUser();
   return (
     <>
@@ -19,7 +18,7 @@ const App = ({ Component, pageProps }) => {
       </ThemeProvider>
     </>
   );
-}
+};
 
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to

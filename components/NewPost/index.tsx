@@ -5,6 +5,18 @@ import { useMutation } from "@apollo/react-hooks";
 import { withApollo } from "../../utils/withApollo";
 import { useFetchUser } from "../../utils/user";
 import loadable from "@loadable/component";
+import {
+  Box,
+  Label,
+  Input,
+  Textarea,
+  Select,
+  Radio,
+  Checkbox,
+  Flex,
+  Slider,
+  Button,
+} from "theme-ui";
 
 const ReactFilestack = loadable(() => import("filestack-react"), {
   ssr: false,
@@ -84,35 +96,81 @@ const Basic = (props: NewPostProps) => {
           /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="title"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.title}
-            />
-            <input
-              type="text"
-              name="content"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.content}
-            />
-            <ReactFilestack
-              apikey={`${process.env.FILESTACK_API_KEY}`}
-              componentDisplayMode={{ type: "immediate" }}
-              actionOptions={{ displayMode: "inline", container: "picker" }}
-              onSuccess={onFileUpload}
-            />
-            <div
-              id="picker"
-              style={{ marginTop: "2rem", height: "20rem" }}
-            ></div>{" "}
-            {errors.content && touched.content && errors.content}
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
+            <Box as="form" onSubmit={(e) => e.preventDefault()}>
+              <Label htmlFor="title">Title</Label>
+              <Input
+                name="title"
+                id="title"
+                mb={3}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.title}
+              />
+              <Label htmlFor="content">Content</Label>
+              <Textarea
+                name="content"
+                id="content"
+                rows={6}
+                mb={3}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.content}
+              />
+              <Flex mb={3}>
+                <Label>
+                  <Radio name="letter" /> Public
+                </Label>
+                <Label>
+                  <Radio name="letter" /> Private
+                </Label>
+              </Flex>
+              <ReactFilestack
+                apikey={`${process.env.FILESTACK_API_KEY}`}
+                componentDisplayMode={{ type: "immediate" }}
+                actionOptions={{ displayMode: "inline", container: "picker" }}
+                onSuccess={onFileUpload}
+              />
+              <div
+                id="picker"
+                style={{ marginTop: "2rem", height: "20rem" }}
+              ></div>
+              {errors.content && touched.content && errors.content}
+              <Button type="submit" disabled={isSubmitting}>
+                Submit
+              </Button>
+            </Box>
           </form>
+
+          // <form onSubmit={handleSubmit}>
+          //   <input
+          //     type="text"
+          //     name="title"
+          //     onChange={handleChange}
+          //     onBlur={handleBlur}
+          //     value={values.title}
+          //   />
+          //   <input
+          //     type="text"
+          //     name="content"
+          //     onChange={handleChange}
+          //     onBlur={handleBlur}
+          //     value={values.content}
+          //   />
+          //   <ReactFilestack
+          //     apikey={`${process.env.FILESTACK_API_KEY}`}
+          //     componentDisplayMode={{ type: "immediate" }}
+          //     actionOptions={{ displayMode: "inline", container: "picker" }}
+          //     onSuccess={onFileUpload}
+          //   />
+          //   <div
+          //     id="picker"
+          //     style={{ marginTop: "2rem", height: "20rem" }}
+          //   ></div>{" "}
+          //   {errors.content && touched.content && errors.content}
+          //   <button type="submit" disabled={isSubmitting}>
+          //     Submit
+          //   </button>
+          // </form>
         )}
       </Formik>
     </div>

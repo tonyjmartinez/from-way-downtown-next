@@ -3,6 +3,7 @@ import { NavLink, Button, jsx, useColorMode } from "theme-ui";
 // import Link from "next/link";
 import { FaRegMoon, FaRegSun } from "react-icons/fa";
 import Link from "next/link";
+import { MdAddCircleOutline } from "react-icons/md";
 
 const Navbar = (props) => {
   const { user, loading } = props;
@@ -46,7 +47,7 @@ const Navbar = (props) => {
         }}
       >
         <Link href="/">
-          <Button>From Way Downtown</Button>
+          <Button>Home</Button>
         </Link>
       </div>
       <div
@@ -65,12 +66,14 @@ const Navbar = (props) => {
             </div>
             <div style={{ marginLeft: "1em" }}>
               <Link href="/new-post">
-                <Button>New Post</Button>
+                <MdAddCircleOutline size={50} />
               </Link>
             </div>
           </>
         ) : (
-          <Link href="/api/login">Login</Link>
+          <Link href="/api/login">
+            <Button>Login</Button>
+          </Link>
         )}
       </div>
     </header>
