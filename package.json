@@ -21,7 +21,6 @@
     "apollo-link-http": "^1.5.17",
     "apollo-link-ws": "^1.0.20",
     "dotenv": "^8.2.0",
-    "emotion-theming": "^10.0.27",
     "filestack-react": "^3.2.1",
     "formik": "^2.1.5",
     "graphql": "^15.1.0",

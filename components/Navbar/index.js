@@ -16,7 +16,7 @@ const Navbar = (props) => {
         gridGap: 3,
         gridTemplateColumns: "repeat(3, 1fr)",
         px: 3,
-        py: 4,
+        py: 2,
         alignItems: "center",
         variant: "styles.header",
         position: "fixed",
