@@ -22,6 +22,8 @@ const Navbar = (props) => {
         position: "fixed",
         bottom: 0,
         width: "100%",
+        zIndex: 100,
+        position: "inherit",
       }}
     >
       {colorMode === "default" ? (
