@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
 import gql from "graphql-tag";
+import { useRouter } from "next/router";
 import { useMutation } from "@apollo/react-hooks";
 import { withApollo } from "../../utils/withApollo";
 import { useFetchUser } from "../../utils/user";
@@ -11,6 +12,7 @@ import {
   Box,
   Label,
   Input,
+  Image,
   Textarea,
   Select,
   Radio,
@@ -23,6 +25,12 @@ import {
 const ReactFilestack = loadable(() => import("filestack-react"), {
   ssr: false,
 });
+
+const thumbnail = (url) => {
+  const parts = url.split("/");
+  parts.splice(3, 0, "resize=width:200");
+  return parts.join("/");
+};
 
 const INSERT_POST = gql`
   mutation(
@@ -62,6 +70,8 @@ const Basic = (props: NewPostProps) => {
   const { loading, user } = useFetchUser();
   const [addPost] = useMutation(INSERT_POST);
   const [url, setUrl] = useState(props?.image?.url);
+  const [publicPost, setPublicPost] = useState(true);
+  const router = useRouter();
 
   console.log("api key...", process.env.FILESTACK_API_KEY);
 
@@ -74,14 +84,14 @@ const Basic = (props: NewPostProps) => {
       <Formik
         initialValues={{ title: "", content: "" }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log("on submit");
+          console.log("on submit", values);
           const { content, title } = values;
           addPost({
             variables: {
               content,
               title,
               userId: user?.sub,
-              isPublic: false,
+              isPublic: publicPost,
               imageUrl: url,
               imageTitle: "TEST TITLE!",
             },
@@ -125,33 +135,56 @@ const Basic = (props: NewPostProps) => {
               />
               <Flex mb={3}>
                 <Label>
-                  <Radio name="letter" /> Public
+                  <Radio
+                    name="isPublic"
+                    value={`${publicPost}`}
+                    defaultChecked={true}
+                    onChange={() => setPublicPost(true)}
+                  />{" "}
+                  Public
                 </Label>
                 <Label>
-                  <Radio name="letter" /> Private
+                  <Radio
+                    name="isPublic"
+                    value={`${!publicPost}`}
+                    onChange={() => setPublicPost(false)}
+                  />{" "}
+                  Private
                 </Label>
               </Flex>
+              {url && (
+                <div style={{ margin: "0px auto" }}>
+                  <a href={thumbnail(url)} target="_blank">
+                    <Image src={thumbnail(url)} />
+                  </a>
+                </div>
+              )}
             </div>
-            <ReactFilestack
-              apikey={`${process.env.FILESTACK_API_KEY}`}
-              componentDisplayMode={{ type: "immediate" }}
-              actionOptions={{ displayMode: "inline", container: "picker" }}
-              onSuccess={onFileUpload}
-            />
-            <div
-              id="picker"
-              style={{
-                marginTop: "2rem",
-                height: "20rem",
-                marginBottom: "2em",
-              }}
-            ></div>
+
+            {!url && (
+              <>
+                <ReactFilestack
+                  apikey={`${process.env.FILESTACK_API_KEY}`}
+                  componentDisplayMode={{ type: "immediate" }}
+                  actionOptions={{ displayMode: "inline", container: "picker" }}
+                  onSuccess={onFileUpload}
+                />
+                <div
+                  id="picker"
+                  style={{
+                    marginTop: "2rem",
+                    height: "20rem",
+                    marginBottom: "2em",
+                  }}
+                ></div>
+              </>
+            )}
 
             {errors.content && touched.content && errors.content}
 
-            <Button sx={{ marginBottom: "100px" }} type="submit">
-              Submit
-            </Button>
+            <div style={{ margin: "0px auto", width: "25%" }}>
+              <Button type="submit">Submit</Button>
+            </div>
           </Box>
         )}
       </Formik>
