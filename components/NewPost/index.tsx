@@ -76,7 +76,7 @@ const Basic = (props: NewPostProps) => {
   console.log("api key...", process.env.FILESTACK_API_KEY);
 
   const onFileUpload = (response) => {
-    setUrl(response.filesUploaded[0].url);
+    setUrl(thumbnail(response.filesUploaded[0].url));
   };
 
   return (
