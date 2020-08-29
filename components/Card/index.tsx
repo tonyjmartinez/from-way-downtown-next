@@ -11,14 +11,16 @@ const CardComponent = (props: CardProps) => {
   return (
     <Card
       sx={{
-        maxWidth: 256,
-        margin: "0px auto",
+        maxWidth: 400,
+        margin: "10px auto",
       }}
     >
       <Image src={`${imageUrl ?? "https://i.imgur.com/r9dkEUf.png"}`} />
 
-      <Text>{title}</Text>
-      <Text>{content}</Text>
+      <Text sx={{ margin: "10px auto", fontSize: "78", color: "secondary" }}>
+        {title}
+      </Text>
+      <Text sx={{ margin: "10px auto", fontSize: "15" }}>{content}</Text>
     </Card>
   );
 };

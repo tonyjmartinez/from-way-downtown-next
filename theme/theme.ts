@@ -113,6 +113,13 @@ export default {
       m: 3,
     },
   },
+  cards: {
+    primary: {
+      boxShadow: "0 0 8px rgba(0, 0, 0, 0.125)",
+      padding: 2,
+      borderRadius: 4,
+    },
+  },
   // styles: {
   //   root: {
   //     bg: "background",
