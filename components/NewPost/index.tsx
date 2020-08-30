@@ -7,6 +7,8 @@ import { useMutation } from "@apollo/react-hooks";
 import { withApollo } from "../../utils/withApollo";
 import { useFetchUser } from "../../utils/user";
 import loadable from "@loadable/component";
+import { FaRegImages } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
 import {
   jsx,
   Box,
@@ -28,7 +30,7 @@ const ReactFilestack = loadable(() => import("filestack-react"), {
 
 const thumbnail = (url) => {
   const parts = url.split("/");
-  parts.splice(3, 0, "resize=width:200");
+  parts.splice(3, 0, "resize=width:400");
   return parts.join("/");
 };
 
@@ -72,12 +74,14 @@ const Basic = (props: NewPostProps) => {
   const [url, setUrl] = useState(props?.image?.url);
   const [publicPost, setPublicPost] = useState(true);
   const router = useRouter();
+  const [showPicker, setShowPicker] = useState(false);
 
   console.log("api key...", process.env.FILESTACK_API_KEY);
 
   const onFileUpload = (response) => {
     setUrl(thumbnail(response.filesUploaded[0].url));
   };
+  console.log("showpicker", showPicker);
 
   return (
     <div>
@@ -160,8 +164,32 @@ const Basic = (props: NewPostProps) => {
                 </div>
               )}
             </div>
-
-            {!url && (
+            {showPicker ? (
+              <MdClose
+                size={30}
+                style={{
+                  display: "block",
+                  margin: "0px auto",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setShowPicker(false);
+                }}
+              />
+            ) : (
+              <FaRegImages
+                size={30}
+                style={{
+                  display: "block",
+                  margin: "0px auto",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setShowPicker(true);
+                }}
+              />
+            )}
+            {!url && showPicker && (
               <>
                 <ReactFilestack
                   apikey={`${process.env.FILESTACK_API_KEY}`}
@@ -182,9 +210,12 @@ const Basic = (props: NewPostProps) => {
 
             {errors.content && touched.content && errors.content}
 
-            <div style={{ margin: "0px auto", width: "25%" }}>
-              <Button type="submit">Submit</Button>
-            </div>
+            <Button
+              sx={{ margin: "0px auto", marginTop: "5em", display: "block" }}
+              type="submit"
+            >
+              Submit
+            </Button>
           </Box>
         )}
       </Formik>

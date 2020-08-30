@@ -7,7 +7,7 @@ const Home = () => {
   const { user, loading } = useFetchUser();
   return (
     <div style={{ width: "90%", margin: "2em auto" }}>
-      <Grid width={[300, 400, 500]} gap={5}>
+      <Grid width={[300, 400, 500]} gap={5} sx={{marginBottom: '5em'}}>
         <Box>{!loading && user && <Posts />}</Box>
       </Grid>
     </div>

@@ -1,4 +1,6 @@
-import { Card, Image, Text } from "theme-ui";
+/** @jsx jsx */
+import { Card, Image, Text, useColorMode, jsx } from "theme-ui";
+import { useThemeUI } from "theme-ui";
 
 interface CardProps {
   title: String;
@@ -8,11 +10,20 @@ interface CardProps {
 
 const CardComponent = (props: CardProps) => {
   const { title, content, imageUrl } = props;
+  const [colorMode, setColorMode] = useColorMode();
+  const context = useThemeUI();
+  const { theme } = context;
+  console.log("theme", theme);
+  const { modes } = theme.colors;
+
   return (
     <Card
       sx={{
         maxWidth: 400,
         margin: "10px auto",
+        boxShadow: `0 0 8px ${
+          colorMode === "default" ? modes.default.primary : modes.dark.primary
+        }`,
       }}
     >
       <Image src={`${imageUrl ?? "https://i.imgur.com/r9dkEUf.png"}`} />
