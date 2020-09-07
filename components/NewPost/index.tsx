@@ -7,7 +7,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { withApollo } from "../../utils/withApollo";
 import { useFetchUser } from "../../utils/user";
 import loadable from "@loadable/component";
-import { FaRegImages } from "react-icons/fa";
+import { FaRegImages, FaMarkdown } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import MarkdownIt from "markdown-it";
 import {
@@ -83,6 +83,7 @@ const Basic = (props: NewPostProps) => {
   const [publicPost, setPublicPost] = useState(true);
   const router = useRouter();
   const [showPicker, setShowPicker] = useState(false);
+  const [showMarkdown, setShowMarkdown] = useState(false);
 
   console.log("api key...", process.env.FILESTACK_API_KEY);
 
@@ -155,19 +156,6 @@ const Basic = (props: NewPostProps) => {
                   onBlur={handleBlur}
                   value={values.content}
                 />
-                {html && (
-                  <div>
-                    <Label>Markdown Content</Label>
-                    <div dangerouslySetInnerHTML={{ __html: html }} />
-                  </div>
-                )}
-                <Label sx={{ mb: "1em" }}>Markdown Editor</Label>
-                <MdEditor
-                  value={markdown}
-                  style={{ height: "500px" }}
-                  renderHTML={(text) => mdParser.render(text)}
-                  onChange={handleEditorChange}
-                />
                 <Flex mb={3}>
                   <Label>
                     <Radio
@@ -187,6 +175,48 @@ const Basic = (props: NewPostProps) => {
                     Private
                   </Label>
                 </Flex>
+                {html && (
+                  <div>
+                    <Label>Markdown Content</Label>
+                    <div dangerouslySetInnerHTML={{ __html: html }} />
+                  </div>
+                )}
+
+                {showMarkdown ? (
+                  <div>
+                    <MdClose
+                      size={30}
+                      style={{
+                        display: "block",
+                        margin: "0px auto",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        setShowMarkdown(false);
+                      }}
+                    />
+                    <Label sx={{ mb: "1em" }}>Markdown Editor</Label>
+                    <MdEditor
+                      value={markdown}
+                      style={{ height: "500px" }}
+                      renderHTML={(text) => mdParser.render(text)}
+                      onChange={handleEditorChange}
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <FaMarkdown
+                      size={40}
+                      style={{
+                        display: "block",
+                        margin: "0px auto",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setShowMarkdown(true)}
+                    />
+                  </div>
+                )}
+
                 {url && (
                   <div style={{ margin: "0px auto" }}>
                     <a href={thumbnail(url)} target="_blank">
@@ -209,7 +239,7 @@ const Basic = (props: NewPostProps) => {
                 />
               ) : (
                 <FaRegImages
-                  size={30}
+                  size={40}
                   style={{
                     display: "block",
                     margin: "0px auto",
@@ -221,7 +251,8 @@ const Basic = (props: NewPostProps) => {
                 />
               )}
               {!url && showPicker && (
-                <>
+                <div style={{ margin: "0px auto", width: "85%" }}>
+                  <Label>Image Upload</Label>
                   <ReactFilestack
                     apikey={`${process.env.FILESTACK_API_KEY}`}
                     componentDisplayMode={{ type: "immediate" }}
@@ -239,7 +270,7 @@ const Basic = (props: NewPostProps) => {
                       marginBottom: "2em",
                     }}
                   ></div>
-                </>
+                </div>
               )}
 
               {errors.content && touched.content && errors.content}

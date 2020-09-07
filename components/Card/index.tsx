@@ -25,6 +25,7 @@ const CardComponent = (props: CardProps) => {
         boxShadow: `0 0 8px ${
           colorMode === "default" ? modes.default.primary : modes.dark.primary
         }`,
+        cursor: "pointer",
       }}
       onClick={onClick}
     >
