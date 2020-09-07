@@ -1,9 +1,10 @@
 // import App from 'next/app'
-import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { ThemeProvider } from "theme-ui";
 import theme from "../theme/theme";
 import { useFetchUser } from "../utils/user";
+import "react-markdown-editor-lite/lib/index.css";
+
 const mdComponents = {
   h1: (props) => <h1 style={{ color: "tomato" }} {...props} />,
 };

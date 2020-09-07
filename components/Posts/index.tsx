@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import { withApollo } from "../../utils/withApollo";
 import Card from "../Card";
 import { Box } from "theme-ui";
+import { useRouter } from "next/router";
 
 const GET_POSTS = gql`
   query MyQuery {
@@ -13,7 +14,7 @@ const GET_POSTS = gql`
       title
       content
       image_url
-      image_title
+      markdown
     }
   }
 `;
@@ -25,19 +26,27 @@ const Posts = (props) => {
 const PostsQuery = () => {
   const { loading, error, data } = useQuery(GET_POSTS);
 
+  const router = useRouter();
+
   if (loading) {
     return <div>Loading..</div>;
   } else if (error) {
+    console.log(error);
     return <div>Error!!!</div>;
   } else if (data) {
+    console.log("data", data);
     return (
       <>
-        {data.posts.map(({ title, content, image_url }, idx) => (
+        {data.posts.map(({ title, content, image_url, id }, idx) => (
           <Card
             key={`${title}-${idx}`}
             title={title}
             content={content}
             imageUrl={image_url}
+            onClick={() => {
+              console.log("click id", id);
+              router.push(`/post/${id}`);
+            }}
           />
         ))}
       </>

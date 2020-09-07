@@ -6,10 +6,11 @@ interface CardProps {
   title: String;
   content: String;
   imageUrl: String;
+  onClick: () => void;
 }
 
 const CardComponent = (props: CardProps) => {
-  const { title, content, imageUrl } = props;
+  const { title, content, imageUrl, onClick } = props;
   const [colorMode, setColorMode] = useColorMode();
   const context = useThemeUI();
   const { theme } = context;
@@ -25,6 +26,7 @@ const CardComponent = (props: CardProps) => {
           colorMode === "default" ? modes.default.primary : modes.dark.primary
         }`,
       }}
+      onClick={onClick}
     >
       <Image src={`${imageUrl ?? "https://i.imgur.com/r9dkEUf.png"}`} />
 

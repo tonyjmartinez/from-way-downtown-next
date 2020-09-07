@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useState } from "react";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import gql from "graphql-tag";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/react-hooks";
@@ -9,6 +9,7 @@ import { useFetchUser } from "../../utils/user";
 import loadable from "@loadable/component";
 import { FaRegImages } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
+import MarkdownIt from "markdown-it";
 import {
   jsx,
   Box,
@@ -23,6 +24,11 @@ import {
   Slider,
   Button,
 } from "theme-ui";
+import dynamic from "next/dynamic";
+
+const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
+  ssr: false,
+});
 
 const ReactFilestack = loadable(() => import("filestack-react"), {
   ssr: false,
@@ -40,16 +46,16 @@ const INSERT_POST = gql`
     $isPublic: Boolean!
     $content: String!
     $userId: String!
-    $imageTitle: String
     $imageUrl: String
+    $markdown: String
   ) {
     insert_posts(
       objects: {
         title: $title
         is_public: $isPublic
         content: $content
-        image_title: $imageTitle
         image_url: $imageUrl
+        markdown: $markdown
       }
     ) {
       affected_rows
@@ -72,6 +78,8 @@ const Basic = (props: NewPostProps) => {
   const { loading, user } = useFetchUser();
   const [addPost] = useMutation(INSERT_POST);
   const [url, setUrl] = useState(props?.image?.url);
+  const [markdown, setMarkdown] = useState("");
+  const [html, setHtml] = useState(null);
   const [publicPost, setPublicPost] = useState(true);
   const router = useRouter();
   const [showPicker, setShowPicker] = useState(false);
@@ -82,6 +90,14 @@ const Basic = (props: NewPostProps) => {
     setUrl(thumbnail(response.filesUploaded[0].url));
   };
   console.log("showpicker", showPicker);
+  const mdParser = new MarkdownIt(/* Markdown-it options */);
+
+  const handleEditorChange = ({ html, text }) => {
+    console.log("html", html);
+    console.log("text", text);
+    setMarkdown(text);
+    setHtml(html);
+  };
 
   return (
     <div>
@@ -97,7 +113,7 @@ const Basic = (props: NewPostProps) => {
               userId: user?.sub,
               isPublic: publicPost,
               imageUrl: url,
-              imageTitle: "TEST TITLE!",
+              markdown: html ?? "",
             },
           });
         }}
@@ -112,111 +128,130 @@ const Basic = (props: NewPostProps) => {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <Box
-            as="form"
-            sx={{ marginBottom: "5em" }}
-            onSubmit={(e) => handleSubmit()}
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
           >
-            <div style={{ width: "75%", margin: "2em auto" }}>
-              <Label htmlFor="title">Title</Label>
-              <Input
-                name="title"
-                id="title"
-                mb={3}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.title}
-              />
-              <Label htmlFor="content">Content</Label>
-              <Textarea
-                name="content"
-                id="content"
-                rows={6}
-                mb={3}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.content}
-              />
-              <Flex mb={3}>
-                <Label>
-                  <Radio
-                    name="isPublic"
-                    value={`${publicPost}`}
-                    defaultChecked={true}
-                    onChange={() => setPublicPost(true)}
-                  />{" "}
-                  Public
-                </Label>
-                <Label>
-                  <Radio
-                    name="isPublic"
-                    value={`${!publicPost}`}
-                    onChange={() => setPublicPost(false)}
-                  />{" "}
-                  Private
-                </Label>
-              </Flex>
-              {url && (
-                <div style={{ margin: "0px auto" }}>
-                  <a href={thumbnail(url)} target="_blank">
-                    <Image src={thumbnail(url)} />
-                  </a>
-                </div>
-              )}
-            </div>
-            {showPicker ? (
-              <MdClose
-                size={30}
-                style={{
-                  display: "block",
-                  margin: "0px auto",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  setShowPicker(false);
-                }}
-              />
-            ) : (
-              <FaRegImages
-                size={30}
-                style={{
-                  display: "block",
-                  margin: "0px auto",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  setShowPicker(true);
-                }}
-              />
-            )}
-            {!url && showPicker && (
-              <>
-                <ReactFilestack
-                  apikey={`${process.env.FILESTACK_API_KEY}`}
-                  componentDisplayMode={{ type: "immediate" }}
-                  actionOptions={{ displayMode: "inline", container: "picker" }}
-                  onSuccess={onFileUpload}
+            <Box as="form" sx={{ marginBottom: "5em" }}>
+              <div style={{ width: "75%", margin: "2em auto" }}>
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  name="title"
+                  id="title"
+                  mb={3}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.title}
                 />
-                <div
-                  id="picker"
+                <Label htmlFor="content">Content</Label>
+                <Textarea
+                  name="content"
+                  id="content"
+                  rows={6}
+                  mb={3}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.content}
+                />
+                {html && (
+                  <div>
+                    <Label>Markdown Content</Label>
+                    <div dangerouslySetInnerHTML={{ __html: html }} />
+                  </div>
+                )}
+                <Label sx={{ mb: "1em" }}>Markdown Editor</Label>
+                <MdEditor
+                  value={markdown}
+                  style={{ height: "500px" }}
+                  renderHTML={(text) => mdParser.render(text)}
+                  onChange={handleEditorChange}
+                />
+                <Flex mb={3}>
+                  <Label>
+                    <Radio
+                      name="isPublic"
+                      value={`${publicPost}`}
+                      defaultChecked={true}
+                      onChange={() => setPublicPost(true)}
+                    />{" "}
+                    Public
+                  </Label>
+                  <Label>
+                    <Radio
+                      name="isPublic"
+                      value={`${!publicPost}`}
+                      onChange={() => setPublicPost(false)}
+                    />{" "}
+                    Private
+                  </Label>
+                </Flex>
+                {url && (
+                  <div style={{ margin: "0px auto" }}>
+                    <a href={thumbnail(url)} target="_blank">
+                      <Image src={thumbnail(url)} />
+                    </a>
+                  </div>
+                )}
+              </div>
+              {showPicker ? (
+                <MdClose
+                  size={30}
                   style={{
-                    marginTop: "2rem",
-                    height: "20rem",
-                    marginBottom: "2em",
+                    display: "block",
+                    margin: "0px auto",
+                    cursor: "pointer",
                   }}
-                ></div>
-              </>
-            )}
+                  onClick={() => {
+                    setShowPicker(false);
+                  }}
+                />
+              ) : (
+                <FaRegImages
+                  size={30}
+                  style={{
+                    display: "block",
+                    margin: "0px auto",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    setShowPicker(true);
+                  }}
+                />
+              )}
+              {!url && showPicker && (
+                <>
+                  <ReactFilestack
+                    apikey={`${process.env.FILESTACK_API_KEY}`}
+                    componentDisplayMode={{ type: "immediate" }}
+                    actionOptions={{
+                      displayMode: "inline",
+                      container: "picker",
+                    }}
+                    onSuccess={onFileUpload}
+                  />
+                  <div
+                    id="picker"
+                    style={{
+                      marginTop: "2rem",
+                      height: "20rem",
+                      marginBottom: "2em",
+                    }}
+                  ></div>
+                </>
+              )}
 
-            {errors.content && touched.content && errors.content}
+              {errors.content && touched.content && errors.content}
 
-            <Button
-              sx={{ margin: "0px auto", marginTop: "5em", display: "block" }}
-              type="submit"
-            >
-              Submit
-            </Button>
-          </Box>
+              <Button
+                sx={{ margin: "0px auto", marginTop: "5em", display: "block" }}
+                type="submit"
+              >
+                Submit
+              </Button>
+            </Box>
+          </Form>
         )}
       </Formik>
     </div>
