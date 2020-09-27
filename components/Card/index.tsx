@@ -14,7 +14,6 @@ const CardComponent = (props: CardProps) => {
   const [colorMode, setColorMode] = useColorMode();
   const context = useThemeUI();
   const { theme } = context;
-  console.log("theme", theme);
   const { modes } = theme.colors;
 
   return (

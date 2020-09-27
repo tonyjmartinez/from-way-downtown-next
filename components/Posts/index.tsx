@@ -19,10 +19,6 @@ const GET_POSTS = gql`
   }
 `;
 
-const Posts = (props) => {
-  return <div>{props.data}</div>;
-};
-
 const PostsQuery = () => {
   const { loading, error, data } = useQuery(GET_POSTS);
 

@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { NavLink, Button, jsx, useColorMode } from "theme-ui";
-// import Link from "next/link";
 import { FaRegMoon, FaRegSun } from "react-icons/fa";
 import Link from "next/link";
 import { MdAddCircleOutline } from "react-icons/md";

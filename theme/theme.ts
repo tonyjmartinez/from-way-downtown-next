@@ -5,6 +5,7 @@ export default {
     modes: {
       default: {
         ...bulma.colors,
+
         // background: "#fff",
         // primary: "#4dabf5",
         // text: "0A0A0A",
@@ -14,38 +15,30 @@ export default {
       },
     },
   },
+
+  fontSizes: [12, 14, 16, 18, 24, 32, 48, 64, 72],
   fonts: {
-    body:
-      'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
-    heading: "inherit",
-    monospace: "monospace",
+    body: "system-ui, sans-serif",
+    heading: "Poppins, sans-serif",
   },
-  fontSizes: [
-    "0.75rem",
-    "0.875rem",
-    "1rem",
-    "1.25rem",
-    "1.5rem",
-    "1.75rem",
-    "2rem",
-    "2.5rem",
-    "3rem",
-  ],
   fontWeights: {
     body: 400,
-    heading: 700,
+    heading: 900,
     bold: 700,
-    light: 300,
-    medium: 500,
-    semibold: 500,
+  },
+  lineHeights: {
+    body: 1.5,
+    heading: 1.125,
+  },
+  text: {
+    heading: {
+      fontFamily: "heading",
+      fontWeight: "heading",
+      lineHeight: "heading",
+    },
   },
   space: ["0rem", "0.5rem", "1rem", "1.5rem", "2rem", "2.5rem", "3rem"],
   styles: {
-    root: {
-      fontFamily: "body",
-      lineHeight: "body",
-      fontWeight: "body",
-    },
     a: {
       color: "primary",
       textDecoration: "none",
@@ -53,23 +46,21 @@ export default {
         textDecoration: "underline",
       },
     },
+    root: {
+      fontFamily: "body",
+      fontWeight: "body",
+      lineHeight: "body",
+    },
+    p: {
+      fontSize: [2, 3],
+    },
     h1: {
-      fontFamily: "heading",
-      fontWeight: "heading",
-      lineHeight: "heading",
-      m: 0,
-      mb: 1,
-      fontSize: 6,
-      mt: 2,
+      variant: "text.heading",
+      fontSize: [5, 6, 7],
     },
     h2: {
-      fontFamily: "heading",
-      fontWeight: "heading",
-      lineHeight: "heading",
-      m: 0,
-      mb: 1,
-      fontSize: 5,
-      mt: 2,
+      variant: "text.heading",
+      fontSize: [4, 5],
     },
     h3: {
       fontFamily: "heading",
@@ -115,7 +106,7 @@ export default {
   },
   cards: {
     primary: {
-      // boxShadow: "0 0 8px rgba(0, 0, 0, 0.125)",
+      boxShadow: "0 0 8px rgba(0, 0, 0, 0.125)",
       padding: 2,
       borderRadius: 4,
     },
